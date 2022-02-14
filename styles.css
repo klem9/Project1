@@ -4,3 +4,9 @@
     background: url('http://www.kodhus.com/freecourse-images/header-image.jpg');
     background-size: cover;
   } */
+
+
+  
+img#logo {
+    width: 100px;
+}
