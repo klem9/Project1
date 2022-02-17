@@ -1,76 +1,39 @@
-const moment = require("moment-timezone");
-const axios = require("axios");
+const matches = [];
 
-const API_TZ = "Europe/London";
-const LOCAL_TZ = "Europe/Rome";
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
 
-// read the current time in the API timezone
-const now = moment.tz(API_TZ);
-const tomorrow = now.add(1, "days");
+today = yyyy + '-' + mm + '-' + dd;
 
-const predictionEndpoint = "https://football-prediction-api.p.rapidapi.com/api/v2/predictions";
-// setting our API key for auth
-// this info should be kept out of public git or other versioning software
-const authHeader = {
-    "8ddd62d75dmshd960cc6a985507ep15c490jsn88d06d6139b4": process.env.RAPIDAPI_KEY
+fetch(`https://football-prediction-api.p.rapidapi.com/api/v2/predictions?market=classic&iso_date=${today}&federation=UEFA`, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "football-prediction-api.p.rapidapi.com",
+		"x-rapidapi-key": "8ddd62d75dmshd960cc6a985507ep15c490jsn88d06d6139b4"
+	}
+})
+.then(response => response.json())
+.then(data => {
+	console.log(data)
+	data.forEach(game => {
+		renderGame(game)
+	});
+})
+.catch(err => {
+	console.error(err);
+});
+
+function renderGame(){
+	//TODO: make a little slot for each game 
+	//include: home_team, away_team, competition_name, prediction, odds, start date
 }
-const params = {
-    iso_date: tomorrow.format("YYYY-MM-DD"), // transforming to ISO format.
-    federation: "UEFA",
-    market: "classic"
+
+function contactForm(){
+
 }
 
-const opts = {
-    method: "GET",
-    headers: authHeader,
-    params: params
+function betSizing(){
+	
 }
-
-axios
-    .get(predictionEndpoint, opts)
-    .then(response => {
-        const json = response.data;
-
-        json.data.sort((a, b) => {
-            // sort ascending by start_date
-            if (a.start_date > b.start_date)
-                return 1;
-            if (a.start_date < b.start_date)
-                return -1;
-            return 0;
-        });
-
-        json.data.forEach(match => {
-            const locStartDate = moment.tz(match.start_date, API_TZ).tz(LOCAL_TZ);
-            let winOdds;
-
-            if (match.odds && match.prediction in match.odds) {
-                winOdds = (
-                    match.odds[match.prediction] !== null ?
-                        match.odds[match.prediction].toFixed(2)
-                        : ""
-                );
-            } else {
-                // Not able to see odds as the subscription plan does not support it.
-                // or current match does not have the odds available for this prediction
-                winOdds = "n/a";
-            }
-            console.log(`${locStartDate}\t${match.home_team} vs ${match.away_team}\t${match.prediction} @ ${winOdds}`)
-        })
-    })
-    .catch(err => {
-        console.log(err.message);
-    });
-
-
-// Handling Parlay / Straight
-
-// function handleColor(value){
-//     if (value === prio.options[0].value) {
-//     } li.style.color = "red";
-//     if (value === prio.options[1].value) {
-//     li.style.color = "orange";
-//     } if(value === prio.options[2].value) { 
-//     li.style.color = "yellow"; }
-// }
-// }
