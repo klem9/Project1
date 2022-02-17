@@ -9,7 +9,6 @@
 
 	document.addEventListener("DOMContentLoaded", init())
 	
-	
 	function init () {
 		
 		fetch(`https://football-prediction-api.p.rapidapi.com/api/v2/predictions?market=classic&iso_date=${today}&federation=UEFA`,{
@@ -61,4 +60,3 @@
 			betSize = bankroll * 0.015
 		}
 	}
-
