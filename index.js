@@ -2,7 +2,7 @@
 
 	var today = new Date();
 	var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); 
 	var yyyy = today.getFullYear();
 
 	today = yyyy + '-' + mm + '-' + dd;
@@ -32,25 +32,16 @@
 
 	function renderGame(games){
 		//TODO: know what element to create
-		homeTeam = document.createElement("")
-		awayTeam = document.createElement("")
-		compName = document.createElement("")
-		predictions = document.createElement("")
-		drawChance = document.createElement("")
-		twoPlusDraw = document.createElement("")
-		teamOneWin = document.createElement("")
-		teamTwoWin = document.createElement("")
-		onePlusDraw = = document.createElement("")
 
-		homeTeam.innerText = games.home_team
-		awayTeam.innerText = games.away_team
-		compName.innerText = games.competition_name
-		predictions.innerText = games.prediction
-		drawChance.innerText = games.odds.X
-		twoPlusDraw.innerText = games.odds.X2
-		teamOneWin.innerText = games.odds[1]
-		teamTwoWin.innerText = games.odds[2]
-		onePlusDraw.innerText = games.odds['1X']
+		homeTeam = games.home_team
+		awayTeam = games.away_team
+		compName = games.competition_name
+		predictions = games.prediction
+		drawChance = games.odds.X
+		twoPlusDraw = games.odds.X2
+		teamOneWin = games.odds[1]
+		teamTwoWin = games.odds[2]
+		onePlusDraw = games.odds['1X']
 
 		//append to table 
 
@@ -69,10 +60,5 @@
 		} else {
 			betSize = bankroll * 0.015
 		}
-	
 	}
 
-	// competition name , start date
-	//home team 
-	//away team 
-	//prediction 
