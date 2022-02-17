@@ -31,18 +31,28 @@
 	}
 
 	function renderGame(games){
-		//TODO: make a little slot for each game 
-		//include: home_team, away_team, competition_name, prediction, odds (win, loss, draw, ), start date
-		// console.log(games.home_team)
-		homeTeam = games.home_team
-		awayTeam = games.away_team
-		compName = games.competition_name
-		predictions = games.prediction
-		drawChance = games.odds.X
-		twoPlusDraw = games.odds.X2
-		teamOneWin = games.odds[1]
-		teamTwoWin = games.odds[2]
-		onePlusDraw = games.odds['1X']
+		//TODO: know what element to create
+		homeTeam = document.createElement("")
+		awayTeam = document.createElement("")
+		compName = document.createElement("")
+		predictions = document.createElement("")
+		drawChance = document.createElement("")
+		twoPlusDraw = document.createElement("")
+		teamOneWin = document.createElement("")
+		teamTwoWin = document.createElement("")
+		onePlusDraw = = document.createElement("")
+
+		homeTeam.innerText = games.home_team
+		awayTeam.innerText = games.away_team
+		compName.innerText = games.competition_name
+		predictions.innerText = games.prediction
+		drawChance.innerText = games.odds.X
+		twoPlusDraw.innerText = games.odds.X2
+		teamOneWin.innerText = games.odds[1]
+		teamTwoWin.innerText = games.odds[2]
+		onePlusDraw.innerText = games.odds['1X']
+
+		//append to table 
 
 	}
 
