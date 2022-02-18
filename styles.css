@@ -24,7 +24,7 @@
   position: relative;
   left: 300px;
   top: 200px;
-  height: 25%;
+  height: 15%;
   object-fit: cover;
   z-index: -1;
   transform: translateZ(-5px) scale(1.5) ;
@@ -64,6 +64,16 @@ styles for table
 
 
 
+#main-content{
+  position: relative;
+   left: 5;
+  bottom:100%;
+}
+
+li.tab::marker{
+visibility: hidden;
+}
+/* 
 table{
   border: 1px solid white;
   width: 2rem;
@@ -81,8 +91,47 @@ td{
 
 p {
   padding: 10px;
-} 
+}  */
 
-h3{
+tbody {
   text-align: center;
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+#All-league {
+  display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+    padding: 2rem;
+}
+
+td {
+  margin: 0%;
+  width: 25%;
+  height: 25%;
+  padding: 10px;
+  border-color: grey;
+  text-align: left;
+  background: grey;
+  vertical-align:middle;
+  color: white;
+  text-shadow: 0 0 5px black;
+}
+
+ul {
+  text-align: justify;
+  width: 100%;
+  object-fit: cover;
+  border-color: grey;
+}
+
+
+ a {
+  color: white;
+  text-shadow: 0 0 5px black;
 }

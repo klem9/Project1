@@ -2,14 +2,16 @@
 
 	var today = new Date();
 	var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 	var yyyy = today.getFullYear();
 
 	today = yyyy + '-' + mm + '-' + dd;
 
 	document.addEventListener("DOMContentLoaded", init())
 	
+	
 	function init () {
+		
 		fetch(`https://football-prediction-api.p.rapidapi.com/api/v2/predictions?market=classic&iso_date=${today}&federation=UEFA`,{
 		"method": "GET", 
 		"headers": {
@@ -20,10 +22,8 @@
 		.then(response => response.json())
 		.then(data => {
 			data.data.forEach(game => {
-				console.log(game)
 				renderGame(game)
 			})
-			betSizing()
 		})
 		.catch(err => {
 			console.error(err);
@@ -31,81 +31,48 @@
 	}
 
 	function renderGame(games){
+		//TODO: know what element to create
+		homeTeam = document.createElement("")
+		awayTeam = document.createElement("")
+		compName = document.createElement("")
+		predictions = document.createElement("")
+		drawChance = document.createElement("")
+		twoPlusDraw = document.createElement("")
+		teamOneWin = document.createElement("")
+		teamTwoWin = document.createElement("")
+		onePlusDraw = document.createElement("")
 
-		table = document.getElementById('result-table')
+		homeTeam.innerText = games.home_team
+		awayTeam.innerText = games.away_team
+		compName.innerText = games.competition_name
+		predictions.innerText = games.prediction
+		drawChance.innerText = games.odds.X
+		twoPlusDraw.innerText = games.odds.X2
+		teamOneWin.innerText = games.odds[1]
+		teamTwoWin.innerText = games.odds[2]
+		onePlusDraw.innerText = games.odds['1X']
 
-		homeTeam = games.home_team
-		awayTeam = games.away_team
-		compName = games.competition_name
-		predictions = games.prediction
-		drawChance = games.odds.X
-		twoPlusDraw = games.odds.X2
-		teamOneWin = games.odds[1]
-		teamTwoWin = games.odds[2]
-		onePlusDraw = games.odds['1X']
+		//append to table 
 
-		console.log(predictions)
-		console.log(drawChance)
-		console.log(twoPlusDraw)
-		console.log(teamOneWin)
-		console.log(teamTwoWin)
-		console.log(onePlusDraw)
-
-
-
-		homeTeamTable = document.createElement("td")
-		awayTeamTable = document.createElement("td")
-		compNameTable = document.createElement("td")
-		predictionsTable = document.createElement("td")
-		drawChanceTable = document.createElement("td")
-		twoPlusDrawTable = document.createElement("td")
-		teamOneWinTable = document.createElement("td")
-		teamTwoWinTable = document.createElement("td")
-		onePlusDrawTable = document.createElement("td")
-
-		homeTeamTable.textContent = homeTeam
-		awayTeamTable.textContent = awayTeam
-		compNameTable.textContent = compName
-		predictionsTable.textContent = predictions
-		drawChanceTable.textContent = drawChance
-		twoPlusDrawTable.textContent = twoPlusDraw
-		teamOneWin.textContent = teamOneWin
-		teamTwoWin.textContent = teamTwoWin
-		onePlusDraw.textContent = onePlusDraw
-
-		// row 1
-		row1 = document.createElement("tr")
-		row1.append(homeTeamTable,teamOneWinTable,onePlusDrawTable)
-
-		table.append(row1)
 	}
 
 	function betSizing(){
-		sizingForm = document.getElementById("betting_aid")
-		sizingInput = document.getElementById("field_1")
-		oddsInput = document.getElementById("field_2")
+		sizingForm = document.getElementById("bet-form")
+		sizingInput = document.getElementById("sizing-input")
+		oddsInput = document.getElementById("odds-input")
 
-		sizingForm.addEventListener("submit",(e)=>{
-			e.preventDefault()
-			bankroll = parseInt(sizingInput.value)
-			odds = parseFloat(oddsInput.value)
+		bankroll = parseInt(sizingInput.value)
+		odds = parseInt(oddsInput.value)
 
-			console.log(bankroll)
-			console.log(odds)
-
-			if (odds <= 2){
-				betSize = bankroll * 0.05
-			} else {
-				betSize = bankroll * 0.025
-			}
-
-			result = document.createElement("p")
-			result.textContent = betSize
-			sizingForm.appendChild(result)
-			e.target.reset()
-		})
+		if (odds <= 2){
+			betSize = bankroll * 0.02
+		} else {
+			betSize = bankroll * 0.015
+		}
+	
 	}
 
-	function clickSubmit(){
-
-	}
+	// competition name , start date
+	//home team 
+	//away team 
+	//prediction 
