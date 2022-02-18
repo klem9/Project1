@@ -60,9 +60,7 @@ section{
   color: white;
 }
 
-styles for table  
-
-
+/* styles for table   */
 
 #main-content{
   position: relative;
@@ -73,41 +71,11 @@ styles for table
 li.tab::marker{
 visibility: hidden;
 }
-/* 
-table{
-  border: 1px solid white;
-  width: 2rem;
-}
-
-tr{
-  border: 1px solid white;
-  width: 2rem;
-}
-
-td{
-  border: 1px solid white;
-  width: 2rem;
-}
-
-p {
-  padding: 10px;
-}  */
 
 tbody {
   text-align: center;
-<<<<<<< HEAD
 }
 
-td{
-  width: 100%;
-  object-fit: cover;
-  text-align: center;
-  margin: 25%;
-=======
-  display: table-row-group;
-  vertical-align: middle;
-  border-color: inherit;
-}
 
 #All-league {
   display: table;
@@ -143,5 +111,23 @@ ul {
  a {
   color: white;
   text-shadow: 0 0 5px black;
->>>>>>> 5b5f461267f1ed3667938bc61fb4c8efd2f00960
 }
+
+th{
+  background: grey;
+  color: white;
+  text-shadow: 0 0 5px black;
+}
+
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+}
+
+#toggle:checked ~ #expand {
+  height: auto;
+}
+#toggle:checked ~ label::before {
+  content: "-";
+} 
