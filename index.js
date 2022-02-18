@@ -10,7 +10,6 @@
 	document.addEventListener("DOMContentLoaded", init())
 	
 	function init () {
-		
 		fetch(`https://football-prediction-api.p.rapidapi.com/api/v2/predictions?market=classic&iso_date=${today}&federation=UEFA`,{
 		"method": "GET", 
 		"headers": {
@@ -21,8 +20,10 @@
 		.then(response => response.json())
 		.then(data => {
 			data.data.forEach(game => {
+				console.log(game)
 				renderGame(game)
 			})
+			betSizing()
 		})
 		.catch(err => {
 			console.error(err);
@@ -30,7 +31,8 @@
 	}
 
 	function renderGame(games){
-		//TODO: know what element to create
+
+		table = document.getElementById('result-table')
 
 		homeTeam = games.home_team
 		awayTeam = games.away_team
@@ -42,21 +44,68 @@
 		teamTwoWin = games.odds[2]
 		onePlusDraw = games.odds['1X']
 
-		//append to table 
+		console.log(predictions)
+		console.log(drawChance)
+		console.log(twoPlusDraw)
+		console.log(teamOneWin)
+		console.log(teamTwoWin)
+		console.log(onePlusDraw)
 
+
+
+		homeTeamTable = document.createElement("td")
+		awayTeamTable = document.createElement("td")
+		compNameTable = document.createElement("td")
+		predictionsTable = document.createElement("td")
+		drawChanceTable = document.createElement("td")
+		twoPlusDrawTable = document.createElement("td")
+		teamOneWinTable = document.createElement("td")
+		teamTwoWinTable = document.createElement("td")
+		onePlusDrawTable = document.createElement("td")
+
+		homeTeamTable.textContent = homeTeam
+		awayTeamTable.textContent = awayTeam
+		compNameTable.textContent = compName
+		predictionsTable.textContent = predictions
+		drawChanceTable.textContent = drawChance
+		twoPlusDrawTable.textContent = twoPlusDraw
+		teamOneWin.textContent = teamOneWin
+		teamTwoWin.textContent = teamTwoWin
+		onePlusDraw.textContent = onePlusDraw
+
+		// row 1
+		row1 = document.createElement("tr")
+		row1.append(homeTeamTable,teamOneWinTable,onePlusDrawTable)
+
+		table.append(row1)
 	}
 
 	function betSizing(){
-		sizingForm = document.getElementById("bet-form")
-		sizingInput = document.getElementById("sizing-input")
-		oddsInput = document.getElementById("odds-input")
+		sizingForm = document.getElementById("betting_aid")
+		sizingInput = document.getElementById("field_1")
+		oddsInput = document.getElementById("field_2")
 
-		bankroll = parseInt(sizingInput.value)
-		odds = parseInt(oddsInput.value)
+		sizingForm.addEventListener("submit",(e)=>{
+			e.preventDefault()
+			bankroll = parseInt(sizingInput.value)
+			odds = parseFloat(oddsInput.value)
 
-		if (odds <= 2){
-			betSize = bankroll * 0.02
-		} else {
-			betSize = bankroll * 0.015
-		}
+			console.log(bankroll)
+			console.log(odds)
+
+			if (odds <= 2){
+				betSize = bankroll * 0.05
+			} else {
+				betSize = bankroll * 0.025
+			}
+
+			result = document.createElement("p")
+			result.textContent = betSize
+			sizingForm.appendChild(result)
+			e.target.reset()
+		})
+	}
+
+	function clickSubmit(){
+
 	}

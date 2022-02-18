@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
+    <script defer src ="index.js"> </script>
 </head>
 
 <body>
@@ -22,32 +23,30 @@
         <div class="container  bg" id="container">
             <div class="top-bar">
                 <h3>LIVE BETTING</h3>
-                <form>
-                    <fieldset>
+                <form id="betting_aid">
                       <legend>Betting Aid</legend>
                       <p>
-                        <input type="text" name="size" id="size_1" value="$">
+                        <input type="text" name="size" id="field_1" value="">
                         <label for="size_1">Bankroll Amount</label>
                       </p>
                       <p>
-                        <input type="text" name="size" id="size_1" value="">
+                        <input type="text" name="size" id="field_2" value="">
                         <label for="size_1">Odds</label>
                       </p>
-                    </fieldset>
+                      <input type="submit" value="Submit">
                   </form>
-                <ul class="top-bar-tabs">
-                    <li class="tab"></li>
-                    <li class="tab"></li>
-                </ul>
-            </div>
-            <div class="main-content" id="main-content">
-                <div class="content" id="now_cnt"></div>
-                <div class="content" id="comming_up_cnt"></div>
             </div>
         </div>
+        <table id="result-table">
+          <tr>
+            <th>Teams</th>
+            <th>Win</th>
+            <th>Win+Draw</th>
+            <th>Draw</th>
+          </tr>
+        </table>
     </div>
 </section>  
-    <script src="table.js"></script>
 </body>
 </html>
 
