@@ -26,6 +26,7 @@
 				console.log(game)
 				renderGame(game)
 			})
+			betSizing()
 		})
 		.catch(err => {
 			console.error(err);
@@ -99,14 +100,16 @@
 	}
 
 	function betSizing(){
-		sizingForm = document.getElementById("bet-form")
-		sizingInput = document.getElementById("sizing-input")
-		oddsInput = document.getElementById("odds-input")
+		sizingForm = document.getElementById("betting_aid")
+		sizingInput = document.getElementById("field_1")
+		oddsInput = document.getElementById("field_2")
 
-		bankroll = parseInt(sizingInput.value)
-		odds = parseFloat(oddsInput.value)
+
 		sizingForm.addEventListener("submit",(e)=>{
+			bankroll = parseInt(sizingInput.value)
+			odds = parseFloat(oddsInput.value)
 			
+			e.preventDefault()
 			if (odds <= 2){
 				betSize = bankroll * 0.05
 			} else {
