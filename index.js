@@ -6,6 +6,7 @@
 	var yyyy = today.getFullYear();
 
 	today = yyyy + '-' + mm + '-' + dd;
+	console.log(today)
 
 	document.addEventListener("DOMContentLoaded", init())
 	
@@ -22,6 +23,7 @@
 		.then(response => response.json())
 		.then(data => {
 			data.data.forEach(game => {
+				console.log(game)
 				renderGame(game)
 			})
 		})
@@ -31,56 +33,38 @@
 	}
 
 	function renderGame(games){
-		//TODO: know what element to create
-		homeTeam = document.createElement("")
-		awayTeam = document.createElement("")
-		compName = document.createElement("")
-		predictions = document.createElement("")
-		drawChance = document.createElement("")
-		twoPlusDraw = document.createElement("")
-		teamOneWin = document.createElement("")
-		teamTwoWin = document.createElement("")
-		onePlusDraw = document.createElement("")
+		table = document.getElementById('result-table')
 
-		homeTeam.innerText = games.home_team
-		awayTeam.innerText = games.away_team
-		compName.innerText = games.competition_name
-		predictions.innerText = games.prediction
-		drawChance.innerText = games.odds.X
-		twoPlusDraw.innerText = games.odds.X2
-		teamOneWin.innerText = games.odds[1]
-		teamTwoWin.innerText = games.odds[2]
-		onePlusDraw.innerText = games.odds['1X']
-
-		//append to table 
-
-
-		// console.log(predictions)
-		// console.log(drawChance)
-		// console.log(twoPlusDraw)
-		// console.log(teamOneWin)
-		// console.log(teamTwoWin)
-		// console.log(onePlusDraw)
+		homeTeam = games.home_team
+		awayTeam = games.away_team
+		compName = games.competition_name
+		predictions = games.prediction
+		drawChance = games.odds.X
+		twoPlusDraw = games.odds.X2
+		teamOneWin = games.odds[1]
+		teamTwoWin = games.odds[2]
+		onePlusDraw = games.odds['1X']
 
 		homeTeamTable = document.createElement("td")
 		awayTeamTable = document.createElement("td")
 		compNameTable = document.createElement("td")
 		predictionsTable = document.createElement("td")
 		drawChanceTable = document.createElement("td")
+		twoPlusDrawTable = document.createElement("td")
 		teamOneWinTable = document.createElement("td")
 		teamTwoWinTable = document.createElement("td")
 		onePlusDrawTable = document.createElement("td")
-		twoPlusDrawTable = document.createElement("td")
 
 		homeTeamTable.textContent = homeTeam
 		awayTeamTable.textContent = awayTeam
-		compNameTable.textContent = compName
-		predictionsTable.textContent = predictions
+		compNameTable.textContent = `League: ${compName}`
+		predictionsTable.textContent = `Prediction: ${predictions}`
 		drawChanceTable.textContent = drawChance
 		twoPlusDrawTable.textContent = twoPlusDraw
 		teamOneWinTable.textContent = teamOneWin
 		teamTwoWinTable.textContent = teamTwoWin
 		onePlusDrawTable.textContent = onePlusDraw
+
 
 		// row 1
 		row1 = document.createElement("tr")
@@ -88,8 +72,13 @@
 
 		//row2
 
-		row2=document.createElement("tr")
+		row2 = document.createElement("tr")
 		row2.append(awayTeamTable,teamTwoWinTable,twoPlusDrawTable,drawChanceTable)
+
+		//row 3
+		row3 = document.createElement("tr")
+		row3.append(compNameTable,predictionsTable)
+
 
 		spacing = document.createElement("thead")
 		spacingTr = document.createElement("tr")
@@ -105,8 +94,7 @@
 
 		spacingTr.append(spacingTh1,spacingTh2,spacingTh3,spacingTh4)
 
-		console.log(homeTeam)
-		table.append(spacing,row1,row2)
+		table.append(spacing,row1,row2,row3)
 
 	}
 
@@ -116,8 +104,9 @@
 		oddsInput = document.getElementById("odds-input")
 
 		bankroll = parseInt(sizingInput.value)
-		odds = parseInt(oddsInput.value)
-
+		odds = parseFloat(oddsInput.value)
+		sizingForm.addEventListener("submit",(e)=>{
+			
 			if (odds <= 2){
 				betSize = bankroll * 0.05
 			} else {
@@ -128,4 +117,5 @@
 			result.textContent = `$${betSize}`
 			sizingForm.appendChild(result)
 			e.target.reset()
-		}
+		})
+	}
