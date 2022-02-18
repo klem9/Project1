@@ -86,3 +86,10 @@ p {
 h3{
   text-align: center;
 }
+
+td{
+  width: 100%;
+  object-fit: cover;
+  text-align: center;
+  margin: 25%;
+}

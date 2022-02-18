@@ -20,7 +20,6 @@
 		.then(response => response.json())
 		.then(data => {
 			data.data.forEach(game => {
-				console.log(game)
 				renderGame(game)
 			})
 			betSizing()
@@ -44,24 +43,22 @@
 		teamTwoWin = games.odds[2]
 		onePlusDraw = games.odds['1X']
 
-		console.log(predictions)
-		console.log(drawChance)
-		console.log(twoPlusDraw)
-		console.log(teamOneWin)
-		console.log(teamTwoWin)
-		console.log(onePlusDraw)
-
-
+		// console.log(predictions)
+		// console.log(drawChance)
+		// console.log(twoPlusDraw)
+		// console.log(teamOneWin)
+		// console.log(teamTwoWin)
+		// console.log(onePlusDraw)
 
 		homeTeamTable = document.createElement("td")
 		awayTeamTable = document.createElement("td")
 		compNameTable = document.createElement("td")
 		predictionsTable = document.createElement("td")
 		drawChanceTable = document.createElement("td")
-		twoPlusDrawTable = document.createElement("td")
 		teamOneWinTable = document.createElement("td")
 		teamTwoWinTable = document.createElement("td")
 		onePlusDrawTable = document.createElement("td")
+		twoPlusDrawTable = document.createElement("td")
 
 		homeTeamTable.textContent = homeTeam
 		awayTeamTable.textContent = awayTeam
@@ -69,15 +66,36 @@
 		predictionsTable.textContent = predictions
 		drawChanceTable.textContent = drawChance
 		twoPlusDrawTable.textContent = twoPlusDraw
-		teamOneWin.textContent = teamOneWin
-		teamTwoWin.textContent = teamTwoWin
-		onePlusDraw.textContent = onePlusDraw
+		teamOneWinTable.textContent = teamOneWin
+		teamTwoWinTable.textContent = teamTwoWin
+		onePlusDrawTable.textContent = onePlusDraw
 
 		// row 1
 		row1 = document.createElement("tr")
 		row1.append(homeTeamTable,teamOneWinTable,onePlusDrawTable)
 
-		table.append(row1)
+		//row2
+
+		row2=document.createElement("tr")
+		row2.append(awayTeamTable,teamTwoWinTable,twoPlusDrawTable,drawChanceTable)
+
+		spacing = document.createElement("thead")
+		spacingTr = document.createElement("tr")
+		spacing.appendChild(spacingTr)
+		spacingTh1 = document.createElement("th")
+		spacingTh1.innerText = "Teams"
+		spacingTh2 = document.createElement("th")
+		spacingTh2.innerText = "Win"
+		spacingTh3 = document.createElement("th")
+		spacingTh3.innerText = "Win+Draw"
+		spacingTh4 = document.createElement("th")
+		spacingTh4.innerText = "Draw"
+
+		spacingTr.append(spacingTh1,spacingTh2,spacingTh3,spacingTh4)
+
+		console.log(homeTeam)
+		table.append(spacing,row1,row2)
+
 	}
 
 	function betSizing(){
@@ -100,12 +118,8 @@
 			}
 
 			result = document.createElement("p")
-			result.textContent = betSize
+			result.textContent = `$${betSize}`
 			sizingForm.appendChild(result)
 			e.target.reset()
 		})
-	}
-
-	function clickSubmit(){
-
 	}
